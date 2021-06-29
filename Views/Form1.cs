@@ -18,5 +18,9 @@ namespace IT_ilisateurs
             InitializeComponent();
         }
 
+            public void InitiateConnexion(string login, string password)
+        {
+            Model.Authenticate(login, password);
+        }
     }
 }

@@ -25,21 +25,6 @@ namespace IT_ilisateurs
             base.Dispose(disposing);
         }
 
-        string UserTextField;
-        string PasswordTextField;
-
-        private void ConnexionButton_Click(object sender, EventArgs e)
-        {
-            //string UserText = Application.OpenForms["Form1"].Controls["UserTextBox"].Text;
-            //string PasswordText = Application.OpenForms["Form1"].Controls["PasswordTextBox"].Text;
-            Console.WriteLine("ccc");
-            string UserText = "aaa";
-            string PasswordText = "bbb";
-            //Debug.WriteLine(Application.OpenForms["Form1"].Controls["UserTextBox"].Text);
-            Model.OpenSQLConnexion(UserText, PasswordText);
-        }
-
-
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
@@ -54,12 +39,21 @@ namespace IT_ilisateurs
             this.StartPosition = FormStartPosition.CenterScreen;
 
             //Initialize first entry for user: login
+            Label UserLabel = new Label();
+            UserLabel.Text = "Identifiant";
+            this.Controls.Add(UserLabel);
+            UserLabel.Location = new Point(350, 100);
             TextBox UserTextBox = new TextBox();
             this.Controls.Add(UserTextBox);
-            UserTextBox.Location = new Point(350,150);
+            UserTextBox.Location = new Point(350,125);
+
             
 
             //Initialize second entry for user: password
+            Label PasswordLabel = new Label();
+            PasswordLabel.Text = "Mot de Passe";
+            this.Controls.Add(PasswordLabel);
+            PasswordLabel.Location = new Point(350, 175);
             TextBox PasswordTextBox = new TextBox();
             this.Controls.Add(PasswordTextBox);
             PasswordTextBox.Location = new Point(350,200);
@@ -71,6 +65,13 @@ namespace IT_ilisateurs
             ConnexionButton.AutoSize = true;
             ConnexionButton.Location = new Point(350,300);
             ConnexionButton.MouseClick += ConnexionButton_Click;
+
+            void ConnexionButton_Click(object sender, EventArgs e)
+            {
+                string UserEntry = UserTextBox.Text;
+                string PasswordEntry = PasswordTextBox.Text;
+                InitiateConnexion(UserEntry, PasswordEntry);
+            }
 
             
         }
