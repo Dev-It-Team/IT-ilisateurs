@@ -28,5 +28,10 @@ namespace IT_ilisateurs
             Form CreateForm = new FormCreate();
             CreateForm.ShowDialog();
         }
+        public void OpenModifyForm(object sender, EventArgs e)
+        {
+            Form CreateForm = new FormModify();
+            CreateForm.ShowDialog();
+        }
     }
 }

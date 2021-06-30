@@ -88,11 +88,11 @@ namespace IT_ilisateurs
                     SqlCommand commandDel3 = new SqlCommand(DeleteUserUsers, cnn);
                     commandDel3.ExecuteNonQuery();
                     cnn.Close();
-                    MessageBox.Show("User deleted successfully");
+                    MessageBox.Show("Utilisateur supprimé");
                 }
                 else
                 {
-                    MessageBox.Show("User not found in database");
+                    MessageBox.Show("Utilisateur introuvable, aucune suppression effectuée");
                 }
             }
             catch
@@ -129,6 +129,43 @@ namespace IT_ilisateurs
                     commandInsertUser.ExecuteNonQuery();
                     cnn.Close();
                     MessageBox.Show("Création réussie");
+                }
+
+            }
+            catch
+            {
+                MessageBox.Show("Une erreur s'est produite, veuillez réessayer.");
+            }
+        }
+
+        public static void UpdateUser(string Name, string FirstName, string Email, string Password, string Birthdate, string Address, string UserFlag)
+        {
+            try
+            {
+                //Open SQL connexion
+                string connectionString;
+                SqlConnection cnn;
+                connectionString = @"Data Source=127.0.0.1,1433;Database=BaseSQL;User ID=sa;Password=Password";
+                cnn = new SqlConnection(connectionString);
+                cnn.Open();
+
+                //Query to check if user exists
+                string CheckUserExists = "SELECT IdUser FROM Users WHERE Email = '" + Email + "'";
+                SqlCommand command = new SqlCommand(CheckUserExists, cnn);
+                var IdUserExists = command.ExecuteScalar();
+                cnn.Close();
+                if(IdUserExists != null)
+                {
+                    string InsertUser = "Update Users set Name ='"+Name+"',FirstName ='"+FirstName+"',Password ='"+Password+"',BirthDate ='"+Birthdate+"', Address ='"+Address+"',UserFlag ='"+UserFlag+"' where Email = '"+Email+"'";
+                    SqlCommand commandInsertUser = new SqlCommand(InsertUser, cnn);
+                    cnn.Open();
+                    commandInsertUser.ExecuteNonQuery();
+                    cnn.Close();
+                    MessageBox.Show("Modification réussie");
+                }
+                else
+                {
+                    MessageBox.Show("Ce compte n'existe pas, créez le via la fenêtre de création.");
                 }
 
             }

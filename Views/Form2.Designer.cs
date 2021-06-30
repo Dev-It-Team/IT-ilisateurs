@@ -47,6 +47,7 @@ namespace IT_ilisateurs
             ModifyUserButton.Text = "Modifier un utilisateur";
             ModifyUserButton.AutoSize = true;
             ModifyUserButton.Location = new Point(400,50);
+            ModifyUserButton.MouseClick += OpenModifyForm;
 
             //Initialize action button
             Button DeleteUserButton = new Button();
