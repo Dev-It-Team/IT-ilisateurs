@@ -20,7 +20,12 @@ namespace IT_ilisateurs
 
             public void InitiateConnexion(string login, string password)
         {
-            Model.Authenticate(login, password);
+            if(Model.Authenticate(login, password))
+            {
+                this.Hide();
+                Form2 form2 = new Form2();
+                form2.ShowDialog();
+            };
         }
     }
 }

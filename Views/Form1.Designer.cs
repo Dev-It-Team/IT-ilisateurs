@@ -68,9 +68,7 @@ namespace IT_ilisateurs
 
             void ConnexionButton_Click(object sender, EventArgs e)
             {
-                string UserEntry = UserTextBox.Text;
-                string PasswordEntry = PasswordTextBox.Text;
-                InitiateConnexion(UserEntry, PasswordEntry);
+                InitiateConnexion(UserTextBox.Text, PasswordTextBox.Text);
             }
 
             

@@ -14,11 +14,12 @@ namespace IT_ilisateurs
 {
     public class Model
     {
-        public static void Authenticate(string User, string Password)
+        public static bool Authenticate(string User, string Password)
         {
             try
             {
-               string connectionString;
+                //Open SQL connexion
+                string connectionString;
                 SqlConnection cnn;
                 connectionString = @"Data Source=127.0.0.1,1433;Database=BaseSQL;User ID=sa;Password=Password";
                 cnn = new SqlConnection(connectionString);
@@ -27,7 +28,7 @@ namespace IT_ilisateurs
 
                 //Sql query to verify if user exists
                 string querystring = "SELECT * FROM Users WHERE Email = '" + User + "' and Password = '" + Password + "'";
-                string query = "insert into Users values ('"+"Ledru"+"','"+"Louis"+"','"+"ledrulouis1@gmail.com"+"','"+"Password"+"','"+"1999-10-20"+"','"+"adressse"+"','"+"2000-01-01 01:01:01"+"','"+"aa"+"','"+" 0"+"','"+"User"+"')";
+                //string query = "insert into Users values ('"+"Ledru"+"','"+"Louis"+"','"+"ledrulouis1@gmail.com"+"','"+"Password"+"','"+"1999-10-20"+"','"+"adressse"+"','"+"2000-01-01 01:01:01"+"','"+"aa"+"','"+" 0"+"','"+"User"+"')";
                 SqlCommand command = new SqlCommand(querystring, cnn);
                 int rowsNb = 0 ;
                 SqlDataReader reader = command.ExecuteReader();
@@ -37,15 +38,71 @@ namespace IT_ilisateurs
                     {
                         rowsNb = rowsNb + 1 ;
                     }
+                    //MessageBox.Show("Connection successfull !, nav to menu");
+                    cnn.Close();
+                    return true;
                 }
-                cnn.Close();
-                MessageBox.Show("Connection successfull !, nav to menu");
+                else
+                {
+                    MessageBox.Show("Connection refusée !");
+                    cnn.Close();
+                    return false;
+                }
             }
             catch
             {
                 MessageBox.Show("Connection fail !");
+                return false;
             }
             
+        }
+
+        public static void DeleteUser(string Email)
+        {
+            try
+            {
+                //Open SQL connexion
+                string connectionString;
+                SqlConnection cnn;
+                connectionString = @"Data Source=127.0.0.1,1433;Database=BaseSQL;User ID=sa;Password=Password";
+                cnn = new SqlConnection(connectionString);
+                cnn.Open();
+
+                //Query to check if user exists
+                string CheckUserExists = "SELECT IdUser FROM Users WHERE Email = '" + Email + "'";
+                SqlCommand command = new SqlCommand(CheckUserExists, cnn);
+                var IdUserToDelete = command.ExecuteScalar();
+                cnn.Close();
+
+                if(IdUserToDelete != null)
+                {
+                    string DeleteUserRest = "Delete from Restaurants where IdUser = '" + IdUserToDelete + "'";
+                    string DeleteUserDeDr = "Delete from DeliveryDrivers where IdUser = '" + IdUserToDelete + "'";
+                    string DeleteUserUsers = "Delete from Users where IdUser = '" + IdUserToDelete + "'";
+
+                    cnn.Open();
+                    SqlCommand commandDel1 = new SqlCommand(DeleteUserRest, cnn);
+                    commandDel1.ExecuteNonQuery();
+                    SqlCommand commandDel2 = new SqlCommand(DeleteUserDeDr, cnn);
+                    commandDel2.ExecuteNonQuery();
+                    SqlCommand commandDel3 = new SqlCommand(DeleteUserUsers, cnn);
+                    commandDel3.ExecuteNonQuery();
+                    cnn.Close();
+                    MessageBox.Show("User deleted successfully");
+                }
+                else
+                {
+                    MessageBox.Show("User not found in database");
+                }
+                
+
+                
+
+            }
+            catch
+            {
+                
+            }
         }
     }
 }
