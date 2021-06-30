@@ -39,6 +39,7 @@ namespace IT_ilisateurs
             CreateUserButton.Text = "Créer un utilisateur";
             CreateUserButton.AutoSize = true;
             CreateUserButton.Location = new Point(200,50);
+            CreateUserButton.MouseClick += OpenCreateForm;
 
             //Initialize action button
             Button ModifyUserButton = new Button();
@@ -53,45 +54,7 @@ namespace IT_ilisateurs
             DeleteUserButton.Text = "Supprimer un utilisateur";
             DeleteUserButton.AutoSize = true;
             DeleteUserButton.Location = new Point(600,50);
-            // DeleteUserButton.MouseClick += SetDeleteInterfaceVisible;
-
-            //Initialize second entry for user: password
-            Label UserToDeleteLabel = new Label();
-            UserToDeleteLabel.Text = "Utilisateur à supprimer";
-            UserToDeleteLabel.AutoSize = true;
-            this.Controls.Add(UserToDeleteLabel);
-            UserToDeleteLabel.Location = new Point(375, 200);
-            UserToDeleteLabel.Visible = false;
-            
-            TextBox UserToDeleteTextBox = new TextBox();
-            this.Controls.Add(UserToDeleteTextBox);
-            UserToDeleteTextBox.Location = new Point(375,225);
-            UserToDeleteTextBox.Visible = false;
-
-            //Initialize action button
-            Button ActionDeleteUserButton = new Button();
-            this.Controls.Add(ActionDeleteUserButton);
-            ActionDeleteUserButton.Text = "Supprimer l'utilisateur";
-            ActionDeleteUserButton.AutoSize = true;
-            ActionDeleteUserButton.Location = new Point(375,250);
-            ActionDeleteUserButton.MouseClick += ActionDeleteUserButton_Click;
-            ActionDeleteUserButton.Visible = false;
-
-            void ActionDeleteUserButton_Click(object sender, EventArgs e)
-            {
-                DeleteUser(UserToDeleteTextBox.Text);
-            }
-            // void SetDeleteInterfaceVisible(object sender, EventArgs e)
-            // {
-            //     ActivateDeleteInterface();
-            // }
-            // void ActivateDeleteInterface()
-            // {
-            //     UserToDeleteLabel.Visible = true;
-            //     UserToDeleteTextBox.Visible = true;
-            //     ActionDeleteUserButton.Visible = true;
-            //     Application.DoEvents();
-            // }
+            DeleteUserButton.MouseClick += OpenDeleteForm;            
             
         }
 

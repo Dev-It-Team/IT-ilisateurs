@@ -18,9 +18,15 @@ namespace IT_ilisateurs
             InitializeComponent();
         }
 
-        public void DeleteUser(string Email)
+        public void OpenDeleteForm(object sender, EventArgs e)
         {
-            Model.DeleteUser(Email);
+            Form DeleteForm = new FormDelete();
+            DeleteForm.ShowDialog();
+        }
+        public void OpenCreateForm(object sender, EventArgs e)
+        {
+            Form CreateForm = new FormCreate();
+            CreateForm.ShowDialog();
         }
     }
 }

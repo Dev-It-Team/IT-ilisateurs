@@ -27,7 +27,7 @@ namespace IT_ilisateurs
                 //MessageBox.Show("Connection Open !");
 
                 //Sql query to verify if user exists
-                string querystring = "SELECT * FROM Users WHERE Email = '" + User + "' and Password = '" + Password + "'";
+                string querystring = "SELECT * FROM Users WHERE Email = '" + User + "' and Password = '" + Password + "' and UserFlag in ('Comm', 'Tech')";
                 //string query = "insert into Users values ('"+"Ledru"+"','"+"Louis"+"','"+"ledrulouis1@gmail.com"+"','"+"Password"+"','"+"1999-10-20"+"','"+"adressse"+"','"+"2000-01-01 01:01:01"+"','"+"aa"+"','"+" 0"+"','"+"User"+"')";
                 SqlCommand command = new SqlCommand(querystring, cnn);
                 int rowsNb = 0 ;
@@ -94,14 +94,47 @@ namespace IT_ilisateurs
                 {
                     MessageBox.Show("User not found in database");
                 }
-                
+            }
+            catch
+            {
+                MessageBox.Show("Une erreur s'est produite, veuillez réessayer.");
+            }
+        }
 
-                
+        public static void CreateUser(string Name, string FirstName, string Email, string Password, string Birthdate, string Address, string UserFlag)
+        {
+            try
+            {
+                //Open SQL connexion
+                string connectionString;
+                SqlConnection cnn;
+                connectionString = @"Data Source=127.0.0.1,1433;Database=BaseSQL;User ID=sa;Password=Password";
+                cnn = new SqlConnection(connectionString);
+                cnn.Open();
+
+                //Query to check if user exists
+                string CheckUserExists = "SELECT IdUser FROM Users WHERE Email = '" + Email + "'";
+                SqlCommand command = new SqlCommand(CheckUserExists, cnn);
+                var IdUserExists = command.ExecuteScalar();
+                cnn.Close();
+                if(IdUserExists != null)
+                {
+                    MessageBox.Show("Cette adresse email est déjà utilisée.");
+                }
+                else
+                {
+                    string InsertUser = "insert into Users values ('"+Name+"','"+FirstName+"','"+Email+"','"+Password+"','"+Birthdate+"','"+Address+"','"+DateTime.Now.ToString("MM'-'dd'-'yyyy HH:mm:ss")+"','"+"aa"+"','"+" 0"+"','"+UserFlag+"')";
+                    SqlCommand commandInsertUser = new SqlCommand(InsertUser, cnn);
+                    cnn.Open();
+                    commandInsertUser.ExecuteNonQuery();
+                    cnn.Close();
+                    MessageBox.Show("Création réussie");
+                }
 
             }
             catch
             {
-                
+                MessageBox.Show("Une erreur s'est produite, veuillez réessayer.");
             }
         }
     }
