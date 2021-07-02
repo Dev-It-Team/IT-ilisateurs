@@ -66,7 +66,7 @@ namespace IT_ilisateurs
             PasswordTextBox.Location = new Point(375,300);
 
             Label BirthdateLabel = new Label();
-            BirthdateLabel.Text = "Date de naissance (YYY-MM-DD):";
+            BirthdateLabel.Text = "Date de naissance (YYYY-MM-DD):";
             this.Controls.Add(BirthdateLabel);
             BirthdateLabel.AutoSize = true;
             TextBox BirthdateTextBox = new TextBox();

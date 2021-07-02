@@ -27,7 +27,7 @@ namespace IT_ilisateurs
                 //MessageBox.Show("Connection Open !");
 
                 //Sql query to verify if user exists
-                string querystring = "SELECT * FROM Users WHERE Email = '" + User + "' and Password = '" + Password + "' and UserFlag in ('Comm', 'Tech')";
+                string querystring = "SELECT * FROM Users WHERE Email = '" + User + "' and Password = '" + Password + "' and UserFlag in ('3', '4')";
                 //string query = "insert into Users values ('"+"Ledru"+"','"+"Louis"+"','"+"ledrulouis1@gmail.com"+"','"+"Password"+"','"+"1999-10-20"+"','"+"adressse"+"','"+"2000-01-01 01:01:01"+"','"+"aa"+"','"+" 0"+"','"+"User"+"')";
                 SqlCommand command = new SqlCommand(querystring, cnn);
                 int rowsNb = 0 ;
@@ -103,6 +103,23 @@ namespace IT_ilisateurs
 
         public static void CreateUser(string Name, string FirstName, string Email, string Password, string Birthdate, string Address, string UserFlag)
         {
+            switch(UserFlag){
+                case "User":
+                    UserFlag = "0";
+                    break;
+                case "Restaurant":
+                    UserFlag = "1";
+                    break;
+                case "DeliveryDriver":
+                    UserFlag = "2";
+                    break;
+                case "Comm":
+                    UserFlag = "3";
+                    break;
+                case "Tech":
+                    UserFlag = "4";
+                    break;
+            }
             try
             {
                 //Open SQL connexion
@@ -140,6 +157,23 @@ namespace IT_ilisateurs
 
         public static void UpdateUser(string Name, string FirstName, string Email, string Password, string Birthdate, string Address, string UserFlag)
         {
+            switch(UserFlag){
+                case "User":
+                    UserFlag = "0";
+                    break;
+                case "Restaurant":
+                    UserFlag = "1";
+                    break;
+                case "DeliveryDriver":
+                    UserFlag = "2";
+                    break;
+                case "Comm":
+                    UserFlag = "3";
+                    break;
+                case "Tech":
+                    UserFlag = "4";
+                    break;
+            }
             try
             {
                 //Open SQL connexion
